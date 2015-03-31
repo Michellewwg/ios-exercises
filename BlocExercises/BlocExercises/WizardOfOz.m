@@ -16,7 +16,7 @@
 }
 
 - (NSString *) mainCharacter {
-    /* WORK HERE */
+    /* WORK HERE  did my work */
     return @"Dorothy";
 }
 

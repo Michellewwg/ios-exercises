@@ -10,6 +10,10 @@
 
 @interface StuffRememberer : NSObject
 
+
+@property (nonatomic, strong) NSMutableArray *rememberThisForLater;
+@property (assign ) CGFloat floatToRemember;
+@property (nonatomic, copy) NSMutableArray *theCopy;
 /*
  
  In this class, there are three pairs of methods.

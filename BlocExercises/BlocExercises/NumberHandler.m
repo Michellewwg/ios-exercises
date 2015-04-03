@@ -11,18 +11,46 @@
 @implementation NumberHandler
 
 - (NSNumber *) numberThatIsTwiceAsBigAsNumber:(NSNumber *)number {
-    /* WORK HERE */
-    return @0;
+    
+    
+    
+    return @([number intValue] * 2) ;
 }
 
 - (NSArray *) arrayOfNumbersBetweenNumber:(NSInteger)number andOtherNumber: (NSInteger)otherNumber {
-    /* WORK HERE */
-    return @[];
+    
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    
+    for (NSInteger i = number ; i <= otherNumber; i++)
+    {
+        [array addObject:[NSNumber numberWithInteger:i]] ;
+        
+    }
+    
+    
+    
+    return [array copy];
 }
 
 - (NSInteger) lowestNumberInArray:(NSArray *)arrayOfNumbers {
-    /* WORK HERE */
-    return 0;
+    int cnt = 0;
+    NSNumber *lowNumber = [[NSNumber alloc ] init];
+   
+    for (NSNumber *num in arrayOfNumbers) {
+        if (cnt == 0)
+        {
+            lowNumber = num;
+        }
+   //     lowNumber = ([num] < [lowNumber]) ? num : lowNumber;
+        if ([num integerValue] < [lowNumber integerValue])
+        {
+            lowNumber = num;
+        }
+        cnt++;
+        
+    }
+    
+    return [lowNumber integerValue];
 }
 
 @end

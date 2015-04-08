@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="???" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CcS-dS-X8J">
+                                <rect key="frame" x="29" y="226" width="543" height="21"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="% Alcohol Content per Beer" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fmh-Hb-9a8">
+                                <rect key="frame" x="28" y="28" width="544" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="568" id="PDe-YA-PD9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="PDe-YA-PD9"/>
+                                    </mask>
+                                </variation>
+                            </textField>
+                            <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="FYP-FV-os7">
+                                <rect key="frame" x="14" y="78" width="572" height="31"/>
+                            </slider>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hmy-8l-Obl">
+                                <rect key="frame" x="202" y="147" width="197" height="30"/>
+                                <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="30"/>
+                                <state key="normal" title="Calculate">
+                                    <color key="titleColor" red="1" green="0.82691462400789484" blue="0.20461093524210516" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="Fmh-Hb-9a8" secondAttribute="trailing" constant="12" id="71k-2U-Lnp"/>
+                            <constraint firstItem="hmy-8l-Obl" firstAttribute="top" secondItem="FYP-FV-os7" secondAttribute="bottom" constant="39" id="BWn-8k-gyR"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="CcS-dS-X8J" secondAttribute="trailing" constant="12" id="DID-wk-TN2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="CcS-dS-X8J" secondAttribute="trailing" constant="12" id="FdJ-ys-mXn"/>
+                            <constraint firstItem="FYP-FV-os7" firstAttribute="top" secondItem="Fmh-Hb-9a8" secondAttribute="bottom" constant="20" id="GB9-aK-isa"/>
+                            <constraint firstItem="CcS-dS-X8J" firstAttribute="width" secondItem="Fmh-Hb-9a8" secondAttribute="width" id="Jb3-Kp-Rqe"/>
+                            <constraint firstItem="CcS-dS-X8J" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="13" id="M4P-A7-ZZo"/>
+                            <constraint firstItem="CcS-dS-X8J" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="15" id="Me5-Lt-jif"/>
+                            <constraint firstItem="FYP-FV-os7" firstAttribute="centerX" secondItem="Fmh-Hb-9a8" secondAttribute="centerX" id="N3f-CW-Zi1"/>
+                            <constraint firstItem="FYP-FV-os7" firstAttribute="width" secondItem="Fmh-Hb-9a8" secondAttribute="width" id="Pwn-a6-Hml"/>
+                            <constraint firstItem="CcS-dS-X8J" firstAttribute="top" secondItem="hmy-8l-Obl" secondAttribute="bottom" constant="49" id="QHa-22-xaJ"/>
+                            <constraint firstItem="hmy-8l-Obl" firstAttribute="centerX" secondItem="FYP-FV-os7" secondAttribute="centerX" constant="0.5" id="SyZ-Jq-Yj1"/>
+                            <constraint firstItem="Fmh-Hb-9a8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="12" id="XaJ-cD-EXI"/>
+                            <constraint firstItem="Fmh-Hb-9a8" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="dgm-NT-mgq"/>
+                            <constraint firstItem="FYP-FV-os7" firstAttribute="centerX" secondItem="Fmh-Hb-9a8" secondAttribute="centerX" id="e0s-oX-tyk"/>
+                            <constraint firstItem="FYP-FV-os7" firstAttribute="top" secondItem="Fmh-Hb-9a8" secondAttribute="bottom" constant="8" id="irX-ll-38J"/>
+                            <constraint firstAttribute="centerY" secondItem="CcS-dS-X8J" secondAttribute="centerY" constant="63.5" id="l2c-6O-D4T"/>
+                            <constraint firstItem="FYP-FV-os7" firstAttribute="width" secondItem="Fmh-Hb-9a8" secondAttribute="width" id="qFc-xA-Q9u"/>
+                            <constraint firstItem="FYP-FV-os7" firstAttribute="centerX" secondItem="Fmh-Hb-9a8" secondAttribute="centerX" id="xux-BQ-Xpm"/>
+                            <constraint firstItem="FYP-FV-os7" firstAttribute="top" secondItem="Fmh-Hb-9a8" secondAttribute="bottom" constant="20" id="yke-hI-b1y"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="GB9-aK-isa"/>
+                                <exclude reference="N3f-CW-Zi1"/>
+                                <exclude reference="e0s-oX-tyk"/>
+                                <exclude reference="qFc-xA-Q9u"/>
+                                <exclude reference="yke-hI-b1y"/>
+                                <exclude reference="DID-wk-TN2"/>
+                                <exclude reference="M4P-A7-ZZo"/>
+                                <exclude reference="l2c-6O-D4T"/>
+                            </mask>
+                        </variation>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="tEm-zu-Nx3" appends="YES" id="cLN-H9-3Df"/>
+                        </connections>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="tEm-zu-Nx3"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="xfT-6G-mek">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -24,14 +24,15 @@
                                     <color key="titleColor" red="1" green="0.82691462400000004" blue="0.20461093520000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="buttonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OdM-DA-92j"/>
+                                </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yGc-jS-qhc">
-                                <rect key="frame" x="16" y="34" width="568" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="9Nf-JC-OJj">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="9Nf-JC-OJj">
                                 <rect key="frame" x="14" y="86" width="572" height="31"/>
+                                <connections>
+                                    <action selector="sliderValueDidChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="xXx-VR-36W"/>
+                                </connections>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="???" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ms-F8-Rlt">
                                 <rect key="frame" x="46" y="243" width="488" height="21"/>
@@ -39,6 +40,14 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yGc-jS-qhc">
+                                <rect key="frame" x="6" y="28" width="568" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="textFieldDidChange:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="Zmc-XL-F9k"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -71,9 +80,99 @@
                             <outletCollection property="gestureRecognizers" destination="snC-dc-XV4" appends="YES" id="KPj-Mg-WLa"/>
                         </connections>
                     </view>
+                    <connections>
+                        <outlet property="beerCountSlider" destination="9Nf-JC-OJj" id="zTc-Fe-HpY"/>
+                        <outlet property="beerPercentTextField" destination="yGc-jS-qhc" id="ESw-WH-kHI"/>
+                        <outlet property="resultLabel" destination="2ms-F8-Rlt" id="EFg-bp-tWb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="snC-dc-XV4"/>
+                <tapGestureRecognizer id="snC-dc-XV4">
+                    <connections>
+                        <action selector="tapGestureDidFire:" destination="BYZ-38-t0r" id="oW9-HQ-h16"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+        </scene>
+        <!--Whiskey View Controller-->
+        <scene sceneID="Nso-2p-3HJ">
+            <objects>
+                <viewController id="xfT-6G-mek" customClass="WhiskeyViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gEs-6k-WuT"/>
+                        <viewControllerLayoutGuide type="bottom" id="QHY-rt-jK3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Qct-Bv-NhU">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8em-zX-y08">
+                                <rect key="frame" x="182" y="163" width="223" height="30"/>
+                                <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="30"/>
+                                <state key="normal" title="Calculate">
+                                    <color key="titleColor" red="1" green="0.82691462400000004" blue="0.20461093520000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonPressed:" destination="xfT-6G-mek" eventType="touchUpInside" id="2HN-tw-1ox"/>
+                                </connections>
+                            </button>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="wnp-n9-j27">
+                                <rect key="frame" x="14" y="86" width="572" height="31"/>
+                                <connections>
+                                    <action selector="sliderValueDidChange:" destination="xfT-6G-mek" eventType="valueChanged" id="hu0-9Y-DhE"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="???" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wTL-jN-7QM">
+                                <rect key="frame" x="46" y="243" width="488" height="21"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dMl-R8-a3h">
+                                <rect key="frame" x="6" y="28" width="568" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="textFieldDidChange:" destination="xfT-6G-mek" eventType="editingDidEnd" id="nxE-DS-2k0"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="dMl-R8-a3h" firstAttribute="top" secondItem="gEs-6k-WuT" secondAttribute="bottom" constant="14" id="5oj-NA-9nV"/>
+                            <constraint firstItem="wTL-jN-7QM" firstAttribute="leading" secondItem="Qct-Bv-NhU" secondAttribute="leadingMargin" constant="15" id="9UE-6t-TlP"/>
+                            <constraint firstItem="wTL-jN-7QM" firstAttribute="trailing" secondItem="Qct-Bv-NhU" secondAttribute="trailingMargin" id="Dt1-Hr-fo9"/>
+                            <constraint firstItem="wTL-jN-7QM" firstAttribute="leading" secondItem="Qct-Bv-NhU" secondAttribute="leadingMargin" id="HIM-wd-ZeK"/>
+                            <constraint firstItem="wTL-jN-7QM" firstAttribute="top" secondItem="8em-zX-y08" secondAttribute="bottom" constant="13" id="IY0-dG-hJr"/>
+                            <constraint firstItem="dMl-R8-a3h" firstAttribute="leading" secondItem="Qct-Bv-NhU" secondAttribute="leadingMargin" id="RqI-cc-kir"/>
+                            <constraint firstItem="dMl-R8-a3h" firstAttribute="trailing" secondItem="Qct-Bv-NhU" secondAttribute="trailingMargin" id="Tyu-xn-4GM"/>
+                            <constraint firstItem="8em-zX-y08" firstAttribute="top" secondItem="wnp-n9-j27" secondAttribute="bottom" constant="84" id="Ugo-Gd-F5I"/>
+                            <constraint firstItem="wnp-n9-j27" firstAttribute="top" secondItem="dMl-R8-a3h" secondAttribute="bottom" constant="22" id="bf6-Wi-X2V"/>
+                            <constraint firstItem="dMl-R8-a3h" firstAttribute="width" secondItem="wnp-n9-j27" secondAttribute="width" id="fHK-hG-ULJ"/>
+                            <constraint firstItem="wnp-n9-j27" firstAttribute="centerX" secondItem="8em-zX-y08" secondAttribute="centerX" constant="-0.5" id="iBt-EQ-VhZ"/>
+                            <constraint firstItem="wTL-jN-7QM" firstAttribute="leading" secondItem="Qct-Bv-NhU" secondAttribute="leadingMargin" id="jyB-Xf-rdu"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="wTL-jN-7QM" secondAttribute="trailing" constant="15" id="mrp-Hz-mm2"/>
+                            <constraint firstItem="wTL-jN-7QM" firstAttribute="trailing" secondItem="Qct-Bv-NhU" secondAttribute="trailingMargin" id="s5k-sV-xSf"/>
+                            <constraint firstItem="dMl-R8-a3h" firstAttribute="centerX" secondItem="wnp-n9-j27" secondAttribute="centerX" id="uhd-KG-L2B"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Dt1-Hr-fo9"/>
+                                <exclude reference="HIM-wd-ZeK"/>
+                                <exclude reference="s5k-sV-xSf"/>
+                                <exclude reference="jyB-Xf-rdu"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="beerCountSlider" destination="wnp-n9-j27" id="8AU-4U-aB8"/>
+                        <outlet property="beerPercentTextField" destination="dMl-R8-a3h" id="LbQ-Hw-Crf"/>
+                        <outlet property="resultLabel" destination="wTL-jN-7QM" id="40A-Wh-jIm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="br3-Kt-HV1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
     </scenes>

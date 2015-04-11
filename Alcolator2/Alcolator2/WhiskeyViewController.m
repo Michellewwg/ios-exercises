@@ -49,7 +49,7 @@
     {
         beerText = NSLocalizedString(@"shots",@"plural of shot");
     }
-    
+    self.navigationItem.title = [NSString stringWithFormat:NSLocalizedString(@"Whiskey (%d %@)",nil),numberOfBeers,beerText];
     NSString *resultText = [NSString stringWithFormat:NSLocalizedString(@"%d %@ (wit h %.2f%% alcohol) contains as much alcohol as %.1f %@ of whiskey.", nil),
                             numberOfBeers,
                             beerText,

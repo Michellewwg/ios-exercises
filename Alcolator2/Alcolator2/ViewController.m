@@ -43,7 +43,7 @@
         beerText = NSLocalizedString(@"beers", @"plural of beer");
     }
     
-    
+    [self.tabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", (int) sender.value]];
     
     self.navigationItem.title = [NSString stringWithFormat:NSLocalizedString(@"Wine (%d %@)",nil),numberOfBeers,beerText];
     

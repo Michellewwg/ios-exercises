@@ -35,6 +35,18 @@
 }
 - (IBAction)sliderValueDidChange:(UISlider *)sender {
     NSLog(@"Slider value changed to %f", sender.value);
+    int numberOfBeers = self.beerCountSlider.value;
+    NSString *beerText;
+    if (numberOfBeers == 1) {
+        beerText =NSLocalizedString(@"beer", @"singular beer");
+    } else {
+        beerText = NSLocalizedString(@"beers", @"plural of beer");
+    }
+    
+    
+    
+    self.navigationItem.title = [NSString stringWithFormat:NSLocalizedString(@"Wine (%d %@)",nil),numberOfBeers,beerText];
+    
     [self.beerPercentTextField resignFirstResponder];
 }
 
@@ -69,6 +81,7 @@
     NSString *resultText = [NSString stringWithFormat:NSLocalizedString(@"%d %@ (with %.2f%% alcohol) contains as much alcohol as %.1f %@ of wine.", nil), numberOfBeers,
                             beerText,  [self.beerPercentTextField.text floatValue], numberOfWineGlassesForEquivalentAlcoholAmount, wineText];
     self.resultLabel.text = resultText;
+    
     
     
 }

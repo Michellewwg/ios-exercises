@@ -43,9 +43,9 @@
         beerText = NSLocalizedString(@"beers", @"plural of beer");
     }
     
-    [self.tabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", (int) sender.value]];
     
-    self.navigationItem.title = [NSString stringWithFormat:NSLocalizedString(@"Wine (%d %@)",nil),numberOfBeers,beerText];
+    
+   // self.navigationItem.title = [NSString stringWithFormat:NSLocalizedString(@"Wine (%d %@)",nil),numberOfBeers,beerText];
     
     [self.beerPercentTextField resignFirstResponder];
 }
@@ -64,6 +64,10 @@
     float ouncesOfAlcoholPerWineGlass = ouncesInOneWineGlass * alcoholPercentageOfWine;
     float numberOfWineGlassesForEquivalentAlcoholAmount = ouncesOfAlcoholTotal / ouncesOfAlcoholPerWineGlass;
     // decide whether to use "beer"/"beers" and "glass"/"glasses"
+    
+    
+    [self.tabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", (int) numberOfWineGlassesForEquivalentAlcoholAmount]];
+    
     
     NSString *beerText;
     if (numberOfBeers == 1) {

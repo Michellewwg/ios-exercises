@@ -38,7 +38,7 @@
     {
          beerText = NSLocalizedString(@"beers",@"plural of beer");
     }
-    
+    [self.tabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", (int) numberOfWhiskeyGlassesForEquivalentAlcoholAmount]];
     NSString *whiskeyText;
     
     if (numberOfWhiskeyGlassesForEquivalentAlcoholAmount ==1)
@@ -47,7 +47,7 @@
     }
     else
     {
-        beerText = NSLocalizedString(@"shots",@"plural of shot");
+        whiskeyText = NSLocalizedString(@"shots",@"plural of shot");
     }
     self.navigationItem.title = [NSString stringWithFormat:NSLocalizedString(@"Whiskey (%d %@)",nil),numberOfBeers,beerText];
     NSString *resultText = [NSString stringWithFormat:NSLocalizedString(@"%d %@ (wit h %.2f%% alcohol) contains as much alcohol as %.1f %@ of whiskey.", nil),
@@ -72,7 +72,7 @@
     
     
     
-    self.navigationItem.title = [NSString stringWithFormat:NSLocalizedString(@"Whiskey (%d %@)",nil),numberOfBeers,beerText];
+   // self.navigationItem.title = [NSString stringWithFormat:NSLocalizedString(@"Whiskey (%d %@)",nil),numberOfBeers,beerText];
     
     [self.beerPercentTextField resignFirstResponder];
 }

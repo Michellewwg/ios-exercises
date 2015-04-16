@@ -87,6 +87,11 @@
    [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Welcome!", @"Welcome title")
+                                              message:NSLocalizedString(@"Get excited to use the best web browser ever!", @"Welcome comment")
+                                              delegate:nil
+                                              cancelButtonTitle:NSLocalizedString(@"OK, I'm excited!", @"Welcome button title") otherButtonTitles:nil];
+    [alert show];
 
 }
 

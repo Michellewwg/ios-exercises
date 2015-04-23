@@ -7,17 +7,21 @@
 //
 
 #import "ViewController.h"
+#import "AwesomeFloatingToolbar.h"
 #import <WebKit/WebKit.h>
 
-@interface ViewController () <WKNavigationDelegate, UITextFieldDelegate>
+@interface ViewController () <WKNavigationDelegate, UITextFieldDelegate, AwesomeFloatingToolbarDelegate>
 
 @property (nonatomic, strong) WKWebView *webview;
 @property (nonatomic, strong) UITextField *textField;
+/*
 @property (nonatomic, strong) UIButton *backButton;
 @property (nonatomic, strong) UIButton *forwardButton;
 @property (nonatomic, strong) UIButton *stopButton;
 @property (nonatomic, strong) UIButton *reloadButton;
-
+*/
+@property (nonatomic, assign) NSUInteger frameCount;
+@property (nonatomic, strong) AwesomeFloatingToolbar *awesomeToolbar;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @end
 
@@ -43,7 +47,7 @@
     self.textField.backgroundColor = [UIColor colorWithWhite:220/255.0f alpha:1];
     self.textField.delegate = self;
     
-    
+    /*
     self.backButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.backButton setEnabled:NO];
     self.forwardButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -52,7 +56,8 @@
     [self.stopButton setEnabled:NO];
     self.reloadButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.reloadButton setEnabled:NO];
-    /*
+    
+     *//*
     [self.backButton setTitle:NSLocalizedString(@"Back", @"Back comnmand") forState:UIControlStateNormal];
     [self.backButton addTarget:self.webview action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     
@@ -65,11 +70,16 @@
     [self.reloadButton setTitle:NSLocalizedString(@"Refresh", @"Reload comnmand") forState:UIControlStateNormal];
     [self.reloadButton addTarget:self.webview action:@selector(reload) forControlEvents:UIControlEventTouchUpInside];
     */
-    [self addButtonTargets];
+    
+    self.awesomeToolbar = [[AwesomeFloatingToolbar alloc] initWithFourTitles:@[kBLCWebBrowserBackString, kBLCWebBrowserForwardString, kBLCWebBrowserStopString, kBLCWebBrowserRefreshString]];
+    
+    self.awesomeToolbar.delegate = self;
+    
+    //[self addButtonTargets];
     
    
     
-    for (UIView *viewToAdd in @[self.webview, self.textField, self.backButton, self.forwardButton, self.stopButton, self.reloadButton]) {
+    for (UIView *viewToAdd in @[self.webview, self.textField, self.awesomeToolbar]) {
         [mainView addSubview:viewToAdd];
     }
     
@@ -96,13 +106,18 @@
 }
 
 - (void) viewWillLayoutSubviews {
-         [super viewWillLayoutSubviews];
+    [super viewWillLayoutSubviews];
+    
     // First, calculate some dimensions.
+    
     static const CGFloat itemHeight = 50;
+    
     CGFloat width = CGRectGetWidth(self.view.bounds);
    // CGFloat browserHeight = CGRectGetHeight(self.view.bounds) - itemHeight;
-    CGFloat browserHeight = CGRectGetHeight(self.view.bounds) - itemHeight - itemHeight;
-    CGFloat buttonWidth = CGRectGetWidth(self.view.bounds) / 4;
+   // CGFloat browserHeight = CGRectGetHeight(self.view.bounds) - itemHeight - itemHeight;
+    
+    CGFloat browserHeight = CGRectGetHeight(self.view.bounds) - itemHeight;
+  //  CGFloat buttonWidth = CGRectGetWidth(self.view.bounds) / 4;
     
     
     // Now, assign the frames
@@ -111,14 +126,8 @@
                                           browserHeight);
     
     
-    CGFloat currentButtonX = 0;
-   
-    for (UIButton *thisButton in @[self.backButton, self.forwardButton, self.stopButton, self.reloadButton]) {
-        thisButton.frame = CGRectMake(currentButtonX, CGRectGetMaxY(self.webview.frame), buttonWidth, itemHeight);
-        currentButtonX += buttonWidth;
-    }
-    
-    
+
+    self.awesomeToolbar.frame = CGRectMake(20, 100, 280, 60);
      }
 
 #pragma mark - UITextFieldDelegate
@@ -176,11 +185,11 @@
         [self.activityIndicator stopAnimating];
     }
     
-    
-    self.backButton.enabled = [self.webview canGoBack];
-    self.forwardButton.enabled = [self.webview canGoForward];
-    self.stopButton.enabled = self.webview.isLoading;
-    self.reloadButton.enabled = !self.webview.isLoading && self.webview.URL;
+    [self.awesomeToolbar setEnabled:[self.webview canGoBack] forButtonWithTitle:kBLCWebBrowserBackString];
+    [self.awesomeToolbar setEnabled:[self.webview canGoForward] forButtonWithTitle:kBLCWebBrowserForwardString];
+    [self.awesomeToolbar setEnabled:self.frameCount > 0 forButtonWithTitle:kBLCWebBrowserStopString];
+    [self.awesomeToolbar setEnabled:self.webview.request.URL && self.frameCount == 0 forButtonWithTitle:kBLCWebBrowserRefreshString];
+  
 }
 
 
@@ -206,16 +215,16 @@
     
     self.webview = newWebView;
     
-    [self addButtonTargets];
+   // [self addButtonTargets];
     
     self.textField.text = nil;
-    [self updateButtonsAndTitle];
+  // [self updateButtonsAndTitle];
     
     
     
 }
 
-
+/*
  -(void) addButtonTargets {
     
      for (UIButton *button in @[self.backButton, self.forwardButton, self.stopButton,self.reloadButton]) {
@@ -228,5 +237,21 @@
      [self.reloadButton addTarget:self.webview action:@selector(reload) forControlEvents:UIControlEventTouchUpInside];
      
  }
+*/
+
+#pragma mark - AwesomeFloatingToolbarDelegate
+
+- (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbardid SelectButtonWithTitle:(NSString *)title {
+    if ([title isEqual:NSLocalizedString(@"Back", @"Back command")]) {
+        [self.webview goBack];
+    } else if ([title isEqual:NSLocalizedString(@"Forward", @"Forward command")]) {
+            [self.webview goForward];
+            } else if ([title isEqual:NSLocalizedString(@"Stop", @"Stop command")]) {
+                [self.webview stopLoading];
+            } else if ([title isEqual:NSLocalizedString(@"Refresh", @"Reload command")]) {
+                    [self.webview reload];
+                }
+    }
+
 
 @end

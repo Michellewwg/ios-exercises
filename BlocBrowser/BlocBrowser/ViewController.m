@@ -187,8 +187,8 @@
     
     [self.awesomeToolbar setEnabled:[self.webview canGoBack] forButtonWithTitle:kBLCWebBrowserBackString];
     [self.awesomeToolbar setEnabled:[self.webview canGoForward] forButtonWithTitle:kBLCWebBrowserForwardString];
-    [self.awesomeToolbar setEnabled:self.frameCount > 0 forButtonWithTitle:kBLCWebBrowserStopString];
-    [self.awesomeToolbar setEnabled:self.webview.request.URL && self.frameCount == 0 forButtonWithTitle:kBLCWebBrowserRefreshString];
+    [self.awesomeToolbar setEnabled:[self.webview isLoading] forButtonWithTitle:kBLCWebBrowserStopString];
+    [self.awesomeToolbar setEnabled:![self.webview isLoading] && self.webview.URL forButtonWithTitle:kBLCWebBrowserRefreshString];
   
 }
 

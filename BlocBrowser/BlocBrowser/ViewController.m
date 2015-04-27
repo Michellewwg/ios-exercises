@@ -241,7 +241,7 @@
 
 #pragma mark - AwesomeFloatingToolbarDelegate
 
-- (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbardid SelectButtonWithTitle:(NSString *)title {
+- (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didSelectButtonWithTitle:(NSString *)title {
     if ([title isEqual:kBLCWebBrowserBackString]) {   // NSLocalizedString(@"Back", @"Back command")]) {
         [self.webview goBack];
     } else if ([title isEqual:kBLCWebBrowserForwardString]) {    // NSLocalizedString(@"Forward", @"Forward command")]) {

@@ -14,7 +14,8 @@
 @property (nonatomic, strong) NSArray *colors;
 @property (nonatomic, strong) NSArray *labels;
 @property (nonatomic, weak) UILabel *currentLabel;
-
+@property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
+@property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 
 
 @end
@@ -54,14 +55,54 @@
            
             [labelsArray addObject:label];
          }
+        self.labels = labelsArray;
+        
+        for (UILabel *thisLabel in self.labels) {
+            [self addSubview:thisLabel];
+        }
+        
+        self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired:)];
+        [self addGestureRecognizer:self.tapGesture];
+        
+        self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panFired:)];
+        [self addGestureRecognizer:self.panGesture];
+        
+        
     }
-    self.labels = labelsArray;
+  
     
-    for (UILabel *thisLabel in self.labels) {
-        [self addSubview:thisLabel];
-    }
+    
     return self;
 }
+
+/*  *************  the firing section *************/
+
+- (void) tapFired:(UITapGestureRecognizer *)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateRecognized) { // #3
+        CGPoint location = [recognizer locationInView:self]; // #4
+        UIView *tappedView = [self hitTest:location withEvent:nil]; // #5
+        if ([self.labels containsObject:tappedView]) { // #6
+            if ([self.delegate respondsToSelector:@selector(floatingToolbar:didSelectButtonWithTitle:)]) {
+                [self.delegate floatingToolbar:self didSelectButtonWithTitle:((UILabel *)tappedView).text];
+            }
+        }
+    }
+}
+
+
+- (void) panFired:(UIPanGestureRecognizer *)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateChanged) {
+        CGPoint translation = [recognizer translationInView:self];
+        NSLog(@"New translation: %@", NSStringFromCGPoint(translation));
+        if ([self.delegate respondsToSelector:@selector(floatingToolbar:didTryToPanWithOffset:)]) {
+            [self.delegate floatingToolbar:self didTryToPanWithOffset:translation];
+        }
+        [recognizer setTranslation:CGPointZero inView:self];
+    }
+}
+
+
+
 
 
 - (void) layoutSubviews {
@@ -109,6 +150,7 @@
         return nil;
     }
 }
+/* MRUTHERF - removed in 25
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     UILabel *label = [self labelFromTouches:touches withEvent:event];
     self.currentLabel = label;
@@ -149,7 +191,7 @@
     self.currentLabel.alpha = 1;
     self.currentLabel = nil;
 }
-
+*/
 
 #pragma mark - Button Enabling
 

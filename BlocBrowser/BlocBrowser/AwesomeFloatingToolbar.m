@@ -16,7 +16,7 @@
 @property (nonatomic, weak) UILabel *currentLabel;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
-
+@property (nonatomic, strong) UIPinchGestureRecognizer *pinchGesture;
 
 @end
 @implementation AwesomeFloatingToolbar
@@ -67,6 +67,8 @@
         self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panFired:)];
         [self addGestureRecognizer:self.panGesture];
         
+        self.pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchFired:)];
+        [self addGestureRecognizer:self.pinchGesture];
         
     }
   
@@ -99,9 +101,20 @@
         }
         [recognizer setTranslation:CGPointZero inView:self];
     }
+
+
 }
 
 
+- (void) pinchFired:(UIPinchGestureRecognizer *)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateChanged) {
+        NSLog(@"HERE");
+       recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
+       recognizer.scale = 1;
+    }
+    
+    
+}
 
 
 

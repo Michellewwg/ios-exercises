@@ -12,11 +12,13 @@
 
 @property (nonatomic, strong) NSArray *currentTitles;
 @property (nonatomic, strong) NSArray *colors;
-@property (nonatomic, strong) NSArray *labels;
+@property (nonatomic, strong) NSArray *buttons;
 @property (nonatomic, weak) UILabel *currentLabel;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 @property (nonatomic, strong) UIPinchGestureRecognizer *pinchGesture;
+@property (nonatomic, strong) UILongPressGestureRecognizer *longPressGesture;
+
 
 @end
 @implementation AwesomeFloatingToolbar
@@ -24,7 +26,7 @@
 - (instancetype) initWithFourTitles:(NSArray *)titles {
        // First, call the superclass (UIView)'s initializer, to make sure we do all that setup first.
     
-    NSMutableArray *labelsArray = [[NSMutableArray alloc] init];
+    NSMutableArray *buttonsArray = [[NSMutableArray alloc] init];
     
     self = [super init];
     if (self)
@@ -36,29 +38,29 @@
         [UIColor colorWithRed:255/255.0 green:179/255.0 blue:71/255.0 alpha:1]];
         
         
-        
-         // Make the 4 labels
+             // Make the 4 labels
          for (NSString *currentTitle in self.currentTitles) {
-            UILabel *label = [[UILabel alloc] init];
-            label.userInteractionEnabled = NO;
-            label.alpha = 0.25;
+            UIButton *button = [[UIButton alloc] init];
+            //label.userInteractionEnabled = NO;
+            button.alpha = 0.25;
             
             NSUInteger currentTitleIndex = [self.currentTitles indexOfObject:currentTitle]; // 0 through 3
             NSString *titleForThisLabel = [self.currentTitles objectAtIndex:currentTitleIndex];
             UIColor *colorForThisLabel = [self.colors objectAtIndex:currentTitleIndex];
             
-            label.textAlignment = NSTextAlignmentCenter;
-            label.font = [UIFont systemFontOfSize:10];
-            label.text = titleForThisLabel;
-            label.backgroundColor = colorForThisLabel;
-            label.textColor = [UIColor whiteColor];
+            //label.textAlignment = NSTextAlignmentCenter;
+            //button.font = [UIFont systemFontOfSize:10];
+            button.titleLabel.text = titleForThisLabel;
+             [button setTitle:titleForThisLabel forState:UIControlStateNormal];
+             button.backgroundColor = colorForThisLabel;
+            button.titleLabel.textColor = [UIColor whiteColor];
            
-            [labelsArray addObject:label];
+            [buttonsArray addObject:button];
          }
-        self.labels = labelsArray;
+        self.buttons = buttonsArray;
         
-        for (UILabel *thisLabel in self.labels) {
-            [self addSubview:thisLabel];
+        for (UIButton *thisButton in self.buttons) {
+            [self addSubview:thisButton];
         }
         
         self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired:)];
@@ -69,6 +71,9 @@
         
         self.pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchFired:)];
         [self addGestureRecognizer:self.pinchGesture];
+        
+        self.longPressGesture =[[UILongPressGestureRecognizer alloc ] initWithTarget:self action:@selector(longPressFired:) ];
+        [self addGestureRecognizer:self.longPressGesture];
         
     }
   
@@ -83,7 +88,7 @@
     if (recognizer.state == UIGestureRecognizerStateRecognized) { // #3
         CGPoint location = [recognizer locationInView:self]; // #4
         UIView *tappedView = [self hitTest:location withEvent:nil]; // #5
-        if ([self.labels containsObject:tappedView]) { // #6
+        if ([self.buttons containsObject:tappedView]) { // #6
             if ([self.delegate respondsToSelector:@selector(floatingToolbar:didSelectButtonWithTitle:)]) {
                 [self.delegate floatingToolbar:self didSelectButtonWithTitle:((UILabel *)tappedView).text];
             }
@@ -114,18 +119,25 @@
             [self.delegate floatingToolbar:self didPinchWithScale:scale];
         }
     }
-    }
+}
     
     
 
+- (void) longPressFired:(UILongPressGestureRecognizer *)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        if ([self.delegate respondsToSelector:@selector(floatingToolbar:didTryToLongPressGesture:)]) {
+            [self.delegate floatingToolbar:self didTryToLongPressGesture:@"Fired"];
+        }
+    }
+}
 
 
 
 - (void) layoutSubviews {
     // set the frames for the 4 labels
     
-     for (UILabel *thisLabel in self.labels) {
-        NSUInteger currentLabelIndex = [self.labels indexOfObject:thisLabel];
+     for (UIButton *thisButton in self.buttons) {
+        NSUInteger currentLabelIndex = [self.buttons indexOfObject:thisButton];
         
         CGFloat labelHeight = CGRectGetHeight(self.bounds) / 2;
         CGFloat labelWidth = CGRectGetWidth(self.bounds) / 2;
@@ -148,7 +160,7 @@
                 labelX = CGRectGetWidth(self.bounds) / 2;
                 }
     
-        thisLabel.frame = CGRectMake(labelX, labelY, labelWidth, labelHeight);
+        thisButton.frame = CGRectMake(labelX, labelY, labelWidth, labelHeight);
         }
     }
 
@@ -215,9 +227,10 @@
     NSUInteger index = [self.currentTitles indexOfObject:title];
 
     if (index != NSNotFound) {
-        UILabel *label = [self.labels objectAtIndex:index];
-        label.userInteractionEnabled = enabled;
-        label.alpha = enabled ? 1.0 : 0.25;
+        UIButton *button = [self.buttons objectAtIndex:index];
+        //label.userInteractionEnabled = enabled;
+        button.enabled = YES;
+        button.alpha = enabled ? 1.0 : 0.25;
     }
 }
 

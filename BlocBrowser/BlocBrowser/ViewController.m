@@ -275,5 +275,9 @@
 
 
 
+- (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didTryToLongPressGesture:(NSString *)text {
+        NSLog(@"Long press toolbar");
+    }
+
 
 @end

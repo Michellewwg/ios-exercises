@@ -122,11 +122,17 @@
 }
     
     
-
 - (void) longPressFired:(UILongPressGestureRecognizer *)recognizer {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
-        if ([self.delegate respondsToSelector:@selector(floatingToolbar:didTryToLongPressGesture:)]) {
-            [self.delegate floatingToolbar:self didTryToLongPressGesture:@"Fired"];
+        int lowerBound = 0;
+        int upperBound = 3;
+        NSInteger randomValue = lowerBound + arc4random() % (upperBound - lowerBound);
+        for (UIButton *button in self.buttons) {
+            if (randomValue > upperBound) {
+                randomValue = 0;
+            }
+            button.backgroundColor = self.colors[randomValue];
+            randomValue++;
         }
     }
 }
